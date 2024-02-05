@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createNewGoods , updateGoods , insertGoodClient , allGoods , updateStatusGoods } = require('../Controller/goods.controller');
+const { createNewGoods , updateGoods , insertGoodClient , allGoods , updateStatusGoods } = require('../Controller/good.controller');
 
 router.get('/all' , allGoods)
       .post('/createadmin' , createNewGoods)

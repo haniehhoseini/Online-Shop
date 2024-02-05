@@ -1,4 +1,4 @@
-const db = require('../utils/database');
+const db = require('../utlis/database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secret = "Hanieh"

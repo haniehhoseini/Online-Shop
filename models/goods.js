@@ -1,9 +1,9 @@
-const db = require('../utils/database');
+const db = require('../utlis/database');
 
 class goodsModule{
 
-    async insertGoodClient(code){
-        const { code , id } = code;
+    async insertGoodClient(data){
+        const { code , id } = data;
         const query = "inset good from goodsclient (code) values (?) where id = ?"; 
         let res = await db.connection.execute(query ,[ code, id ]);
         if (res) {
@@ -35,8 +35,8 @@ class goodsModule{
         return res;
     }
 
-    async updateStatusGoods(status){
-        const { status , id } = status;
+    async updateStatusGoods(data){
+        const { status , id } = data;
         const query = "update goodsclient set status = ? where id = ? ";
         let res = await db.connection.execute(query , [status , id]);
         return res;

@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const authRoutes = require("./Routes/auth.routes");
-const goodRoutes = require("./Routes/good.routes");
+const authRoutes = require("./Routes/auth.route");
+const goodRoutes = require("./Routes/good.route");
 
 const app = express();
 const port = 5555;
