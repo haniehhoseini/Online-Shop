@@ -19,18 +19,29 @@ class goodsModule{
         return res;
     }
 
-    async updateGoods(items){
-        const { name , code } = items;
-        const query = "update createnewgoods set name = ? where code = ?";
-        let res = await db.connection.execute(query ,[ name ,code ]);
-        if (res){
-            console.log("success");
-            return res;
-        }else {console.log("Invalid code")}
+    async updateGoods(items) {
+        try {
+            const { name, pictureURL, category, price , code} = items;
+            const query = "UPDATE createnewgoods SET name = ?, pictureURL = ?, category = ?, price = ? WHERE code = ?";
+            
+            const res = await db.connection.execute(query, [name, pictureURL, category, price, code]);
+    
+            if (res && res.affectedRows > 0) {
+                console.log("Success: Rows affected -", res.affectedRows);
+                return res;
+            } else {
+                console.log("Invalid code or no rows updated");
+                return null;  
+            }
+        } catch (error) {
+            console.error("Error updating goods:", error.message);
+            throw error;  
+        }
     }
+    
 
     async allGoods(){
-        const query = "select * from createnewgoods";
+        const query = "select name, pictureURL, category, price, code from createnewgoods";
         let res = await db.connection.execute(query);
         return res;
     }

@@ -5,8 +5,8 @@ const { createNewGoods , updateGoods , insertGoodClient , allGoods , updateStatu
 
 router.get('/all' , allGoods)
       .post('/createadmin' , createNewGoods)
-      .put('/updateadmin' , updateGoods)
-      .put('/updatestatus' , updateStatusGoods)
+      .post('/updateadmin' , updateGoods)
+      .post('/updatestatus' , updateStatusGoods)
       .post('/insertgoodclient', insertGoodClient);
 
 module.exports = router;
