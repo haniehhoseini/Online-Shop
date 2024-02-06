@@ -30,15 +30,26 @@ class authModule{
     async login(items){
         const {tel , password } = items;
         console.log(password);
-        const query = "select password from loginRegister where tel = ?";
+        const query = "select password , id from loginRegister where tel = ?";
         let [ list ] = await db.connection.execute(query ,[ tel ]);
         const truePassword = await bcrypt.compareSync(password , list[0].password);
         if (truePassword) {
-            const token = jwt.sign({ tel }, secret , { expiresIn: "1h" });
+            const token = jwt.sign({ tel , "id":list[0].id  }, secret , { expiresIn: "1h" });
             console.log("success");
             return token;
         }else {console.log("Invalid credentials")}
     }
+
+    Checkadmin(data){
+        let {adminname,adminpassword}=data
+        console.log(adminname,adminpassword);
+        let username="admin"
+        let password="admin"
+        if (adminname==username && adminpassword==password) {
+            return true
+        }
+       return false
+}
 
 }
 

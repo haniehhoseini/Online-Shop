@@ -13,12 +13,6 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use("/api/auth", authRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/good", goodRoutes);
-app.use("/api/good", goodRoutes);
-app.use("/api/good", goodRoutes);
-app.use("/api/good", goodRoutes);
-app.use("/api/good", goodRoutes);
 app.use("/api/good", goodRoutes);
 
 app.listen(port ,()=>{

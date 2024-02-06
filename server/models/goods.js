@@ -3,19 +3,24 @@ const db = require('../utlis/database');
 class goodsModule{
 
     async insertGoodClient(data){
-        const { code , id } = data;
-        const query = "inset good from goodsclient (code) values (?) where id = ?"; 
-        let res = await db.connection.execute(query ,[ code , id ]);
+        const { id , code } = data;
+        const find = "select name , category, price from createnewgoods where code = ?"
+        let [tempres] = await db.connection.execute(find, [data.code]);
+        let [tempres2] = tempres;
+
+        const {name , price , category } = tempres2;
+        const query = "insert into  goodsclient (code , name , id , price , category ) values (? , ? , ? , ? , ?)"; 
+        let res = await db.connection.execute(query ,[ code , name , id , price , category ]);
         if (res) {
             console.log("success");
             return res;
-        }else {console.log("Invalid code")}
+        }else {console.log("Invalid")}
     }
 
     async createNewGoods(items){
-        const { name , code , pictureURL , category , price } = items;
-        const query = "insert into createnewgoods (name , code , pictureURL , category , price , mojodi) values (? , ? , ? , ? , ? , ?)"; 
-        let res = await db.connection.execute(query ,[ name , code , pictureURL , category , price ])
+        const { name , code , img , category , price , mojodi} = items;
+        const query = "insert into createnewgoods (name , code , img , category , price , mojodi) values (? , ? , ? , ? , ? , ?)"; 
+        let res = await db.connection.execute(query ,[ name , code , img , category , price , mojodi])
         return res;
     }
 
@@ -41,17 +46,26 @@ class goodsModule{
     
 
     async allGoods(){
-        const query = "select name, pictureURL, category, price, code, mojodi from createnewgoods";
-        let res = await db.connection.execute(query);
+        const query = "select name, img , category, price, code, mojodi from createnewgoods";
+        let [res] = await db.connection.execute(query);
         return res;
     }
 
     async updateStatusGoods(data){
-        const { mojodi , id } = data;
-        const query = "update goodsclient set mojodi = ? where id = ? ";
-        let res = await db.connection.execute(query , [mojodi , id]);
+        const { mojodi , code } = data;
+        const query = "update goodsclient set mojodi = ? where code = ? ";
+        let res = await db.connection.execute(query , [mojodi , code]);
         return res;
     }
+
+    async allPaymentBuy(data){
+        const { id } = data;
+        const query = "SELECT name, price, category, code FROM goodsclient WHERE id = ?";
+        let [res] = await db.connection.execute(query, [ id ] );
+        return res;
+    }
+
+    
 
 }
 

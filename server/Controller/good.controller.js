@@ -24,3 +24,8 @@ exports.insertGoodClient = async (req , res) =>{
     let items = await goodsModule.insertGoodClient(req.body);
     res.json(items);
 };
+
+exports.allPaymentBuy = async (req, res) =>{
+    let items = await goodsModule.allPaymentBuy(req.body);
+    res.json(items);
+};
