@@ -26,10 +26,11 @@ class goodsModule{
 
     async updateGoods(items) {
         try {
-            const { name, pictureURL, category, price , code} = items;
-            const query = "UPDATE createnewgoods SET name = ?, pictureURL = ?, category = ?, price = ? , mojodi = ? WHERE code = ?";
+            const { name, img, category, price , code , mojodi} = items;
+            console.log(items);
+            const query = "UPDATE createnewgoods SET name = ?, img = ?, category = ?, price = ? , mojodi = ? WHERE code = ?";
             
-            const res = await db.connection.execute(query, [name, pictureURL, category, price, code]);
+            const res = await db.connection.execute(query, [name, img, category, price, mojodi ,code ]);
     
             if (res && res.affectedRows > 0) {
                 console.log("Success: Rows affected -", res.affectedRows);
