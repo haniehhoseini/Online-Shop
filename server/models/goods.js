@@ -7,14 +7,20 @@ class goodsModule{
         const find = "select name , category, price from createnewgoods where code = ?"
         let [tempres] = await db.connection.execute(find, [data.code]);
         let [tempres2] = tempres;
-
+        let status = 0;
         const {name , price , category } = tempres2;
-        const query = "insert into  goodsclient (code , name , id , price , category ) values (? , ? , ? , ? , ?)"; 
-        let res = await db.connection.execute(query ,[ code , name , id , price , category ]);
+        const query = "insert into  goodsclient (code , name , id , price , category , status) values (? , ? , ? , ? , ? , ?)"; 
+        let res = await db.connection.execute(query ,[ code , name , id , price , category , status ]);
         if (res) {
             console.log("success");
             return res;
         }else {console.log("Invalid")}
+    }
+
+    async readAllGoodOfAllClient(){
+        const query = "SELECT name , category , price , code FROM goodsclient where status = '0'";
+        let [res] = await db.connection.execute(query);
+        return res;
     }
 
     async createNewGoods(items){
@@ -53,15 +59,15 @@ class goodsModule{
     }
 
     async updateStatusGoods(data){
-        const { mojodi , code } = data;
-        const query = "update goodsclient set mojodi = ? where code = ? ";
-        let res = await db.connection.execute(query , [mojodi , code]);
+        const { status , code } = data;
+        const query = "update goodsclient set status = ? where code = ? ";
+        let res = await db.connection.execute(query , [status , code]);
         return res;
     }
 
     async allPaymentBuy(data){
         const { id } = data;
-        const query = "SELECT name, price, category, code FROM goodsclient WHERE id = ?";
+        const query = "SELECT name, price, category, code , status FROM goodsclient WHERE id = ?";
         let [res] = await db.connection.execute(query, [ id ] );
         return res;
     }

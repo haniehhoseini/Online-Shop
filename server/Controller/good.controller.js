@@ -16,7 +16,7 @@ exports.allGoods = async (req , res) =>{
 };
 
 exports.updateStatusGoods = async (req , res) =>{
-    let items = await goodsModule.updateStatus(req.body);
+    let items = await goodsModule.updateStatusGoods(req.body);
     res.json(items);
 };
 
@@ -27,5 +27,10 @@ exports.insertGoodClient = async (req , res) =>{
 
 exports.allPaymentBuy = async (req, res) =>{
     let items = await goodsModule.allPaymentBuy(req.body);
+    res.json(items);
+};
+
+exports.readAllGoodOfAllClient = async (req , res) =>{
+    let items = await goodsModule.readAllGoodOfAllClient(req.body);
     res.json(items);
 };
